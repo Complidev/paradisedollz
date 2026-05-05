@@ -10,7 +10,7 @@ class ApplyController extends Controller
 {
     public function create(): RedirectResponse
     {
-        return redirect()->route('home')->fragment('apply');
+        return redirect()->route('home')->withFragment('apply');
     }
 
     public function store(Request $request): RedirectResponse
@@ -36,6 +36,6 @@ class ApplyController extends Controller
             'status' => ModelApplication::STATUS_PENDING,
         ]);
 
-        return redirect()->route('home')->fragment('apply')->with('application_sent', true);
+        return redirect()->route('home')->withFragment('apply')->with('application_sent', true);
     }
 }

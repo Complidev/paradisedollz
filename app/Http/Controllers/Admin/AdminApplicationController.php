@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MemberApplicationApprovedMail;
 use App\Models\ModelApplication;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Throwable;
 
 class AdminApplicationController extends Controller
 {
@@ -34,11 +36,13 @@ class AdminApplicationController extends Controller
             return redirect()->back()->withErrors(['email' => __('A member account with this email already exists.')]);
         }
 
-        DB::transaction(function () use ($application): void {
+        $temporaryPassword = Str::password(14, letters: true, numbers: true, symbols: false);
+
+        DB::transaction(function () use ($application, $temporaryPassword): void {
             $user = User::create([
                 'name' => $application->name,
                 'email' => $application->email,
-                'password' => Hash::make(Str::random(40)),
+                'password' => Hash::make($temporaryPassword),
                 'role' => 'model',
                 'email_verified_at' => now(),
             ]);
@@ -51,9 +55,74 @@ class AdminApplicationController extends Controller
             ])->save();
         });
 
-        Password::broker()->sendResetLink(['email' => $application->email]);
+        if (config('mail.default') === 'resend' && ! filled(config('services.resend.key'))) {
+            return $this->redirectWithApprovalMailFailure(
+                $application,
+                $temporaryPassword,
+                __('RESEND_API_KEY is empty. Create a key at resend.com/api-keys, add it to your .env file, run php artisan config:clear, then approve another application or contact the member manually.')
+            );
+        }
 
-        return redirect()->back()->with('status', __('Application approved. The applicant will receive an email to set their password.'));
+        if (config('mail.default') === 'smtp' && ! filled(config('mail.mailers.smtp.password'))) {
+            return $this->redirectWithApprovalMailFailure(
+                $application,
+                $temporaryPassword,
+                __('MAIL_PASSWORD is empty. For Gmail you must use an App Password from Google Account → Security → App passwords (not your normal login password). Paste it into MAIL_PASSWORD in .env, run php artisan config:clear, then try again.')
+            );
+        }
+
+        try {
+            Mail::to($application->email)->send(new MemberApplicationApprovedMail(
+                memberName: $application->name,
+                temporaryPassword: $temporaryPassword,
+                loginUrl: route('login'),
+            ));
+        } catch (Throwable $e) {
+            report($e);
+
+            $hint = $this->approvalMailFailureHint($e);
+
+            return $this->redirectWithApprovalMailFailure($application, $temporaryPassword, $hint);
+        }
+
+        return redirect()->back()->with('status', __('Application approved. The member received an email with a temporary password to log in.'));
+    }
+
+    private function redirectWithApprovalMailFailure(
+        ModelApplication $application,
+        string $temporaryPassword,
+        string $hint
+    ): RedirectResponse {
+        return redirect()->back()
+            ->with(
+                'warning',
+                __('Application approved and the member account was created, but the welcome email could not be sent. :hint Until mail works, use the temporary password below.', ['hint' => $hint])
+            )
+            ->with('approval_fallback_email', $application->email)
+            ->with('approval_fallback_password', $temporaryPassword);
+    }
+
+    private function approvalMailFailureHint(Throwable $e): string
+    {
+        $message = $e->getMessage();
+
+        if (config('mail.default') === 'smtp' && str_contains($message, 'Application-specific password required')) {
+            return __('Gmail rejected SMTP login: create an App Password at Google Account → Security → App passwords and put it in MAIL_PASSWORD in .env (not your normal Gmail password). Then run php artisan config:clear.');
+        }
+
+        if (config('mail.default') !== 'resend') {
+            return __('Check your mail settings in .env and see storage/logs/laravel.log for the error details.');
+        }
+
+        if (str_contains($message, 'API key is invalid')) {
+            return __('Resend rejected the request (invalid or missing API key). Set RESEND_API_KEY=re_… from resend.com/api-keys in .env, run php artisan config:clear, and try again.');
+        }
+
+        if (str_contains($message, 'domain') && str_contains(strtolower($message), 'verify')) {
+            return __('Your sending domain may not be verified in Resend yet. Add DNS records at resend.com/domains and set MAIL_FROM_ADDRESS to an address on that domain.');
+        }
+
+        return __('Check RESEND_API_KEY, verify your sending domain in the Resend dashboard, and see storage/logs/laravel.log for details.');
     }
 
     public function reject(ModelApplication $application): RedirectResponse

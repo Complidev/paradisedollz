@@ -9,6 +9,19 @@
                 <div class="rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('status') }}</div>
             @endif
 
+            @if (session('warning'))
+                <div class="rounded-md bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900 space-y-3">
+                    <p>{{ session('warning') }}</p>
+                    @if (session('approval_fallback_password'))
+                        <div class="rounded-md border border-amber-300 bg-white px-4 py-3 text-gray-900">
+                            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Temporary password (email failed)') }}</p>
+                            <p class="mt-1 text-xs text-gray-600">{{ session('approval_fallback_email') }}</p>
+                            <p class="mt-2 select-all font-mono text-base font-semibold tracking-wide break-all">{{ session('approval_fallback_password') }}</p>
+                        </div>
+                    @endif
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="rounded-md bg-red-50 p-4 text-sm text-red-800">
                     @foreach ($errors->all() as $error)
