@@ -12,6 +12,7 @@ class Course extends Model
         'title',
         'slug',
         'platform_label',
+        'platform_color',
         'description',
         'is_published',
         'sort_order',
@@ -57,5 +58,46 @@ class Course extends Model
             ->count();
 
         return (int) round(($completed / $total) * 100);
+    }
+
+    public function displayPlatform(): string
+    {
+        return $this->platform_label ?: 'General';
+    }
+
+    public function displayColor(): string
+    {
+        return $this->platform_color ?: match (strtolower(trim($this->displayPlatform()))) {
+            'chaturbate' => '#FF8C00',
+            'stripchat' => '#FF3E4D',
+            'babestation' => '#E91E8C',
+            'livejasmin' => '#FF6B35',
+            'onlyfans' => '#00AFF0',
+            'fansly' => '#9B6DFF',
+            'bongacams' => '#FF4444',
+            'cam4' => '#22C55E',
+            'camsoda' => '#06B6D4',
+            'myfreecams', 'mfc' => '#8B5CF6',
+            'flirt4free' => '#F472B6',
+            'streamate' => '#F59E0B',
+            'instagram' => '#E1306C',
+            'tiktok' => '#FF0050',
+            default => '#C9A96E',
+        };
+    }
+
+    public function displayColorBackground(float $alpha = 0.13): string
+    {
+        $hex = ltrim($this->displayColor(), '#');
+
+        if (strlen($hex) !== 6) {
+            return 'rgba(201,169,110,'.$alpha.')';
+        }
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        return "rgba({$r},{$g},{$b},{$alpha})";
     }
 }

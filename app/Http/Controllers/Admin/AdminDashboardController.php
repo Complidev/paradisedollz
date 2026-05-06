@@ -14,8 +14,25 @@ class AdminDashboardController extends Controller
     {
         $pendingApplications = ModelApplication::where('status', ModelApplication::STATUS_PENDING)->count();
         $coursesCount = Course::count();
+        $publishedCoursesCount = Course::where('is_published', true)->count();
         $modelsCount = User::where('role', 'model')->count();
+        $recentApplications = ModelApplication::query()
+            ->latest()
+            ->take(5)
+            ->get();
+        $recentCourses = Course::query()
+            ->withCount('lessons')
+            ->latest()
+            ->take(5)
+            ->get();
 
-        return view('admin.dashboard', compact('pendingApplications', 'coursesCount', 'modelsCount'));
+        return view('admin.dashboard', compact(
+            'pendingApplications',
+            'coursesCount',
+            'publishedCoursesCount',
+            'modelsCount',
+            'recentApplications',
+            'recentCourses'
+        ));
     }
 }

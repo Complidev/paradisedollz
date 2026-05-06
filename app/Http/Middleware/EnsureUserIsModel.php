@@ -10,10 +10,20 @@ class EnsureUserIsModel
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->user()?->isModel()) {
-            abort(403);
+        $user = $request->user();
+
+        if ($user?->isModel()) {
+            return $next($request);
         }
 
-        return $next($request);
+        if ($user?->isAdmin()) {
+            return redirect()->route(
+                $request->routeIs('member.courses.*', 'member.lessons.*')
+                    ? 'admin.courses.index'
+                    : 'admin.models.progress'
+            );
+        }
+
+        abort(403);
     }
 }

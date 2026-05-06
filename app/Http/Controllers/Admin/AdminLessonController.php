@@ -16,11 +16,15 @@ class AdminLessonController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'body' => ['nullable', 'string', 'max:50000'],
             'video_url' => ['nullable', 'string', 'max:2000'],
+            'duration' => ['nullable', 'string', 'max:64'],
+            'has_pdf' => ['nullable', 'boolean'],
+            'pdf_url' => ['nullable', 'string', 'max:2000'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
         ]);
 
         $course->lessons()->create([
             ...$validated,
+            'has_pdf' => $request->boolean('has_pdf'),
             'sort_order' => $validated['sort_order'] ?? ($course->lessons()->max('sort_order') + 1),
         ]);
 
@@ -35,8 +39,13 @@ class AdminLessonController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'body' => ['nullable', 'string', 'max:50000'],
             'video_url' => ['nullable', 'string', 'max:2000'],
+            'duration' => ['nullable', 'string', 'max:64'],
+            'has_pdf' => ['nullable', 'boolean'],
+            'pdf_url' => ['nullable', 'string', 'max:2000'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
         ]);
+
+        $validated['has_pdf'] = $request->boolean('has_pdf');
 
         $lesson->update($validated);
 

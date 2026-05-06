@@ -4,20 +4,57 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\LessonProgress;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MemberCourseController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $courses = Course::query()
             ->where('is_published', true)
+            ->with(['lessons' => fn ($q) => $q->orderBy('sort_order')])
             ->orderBy('sort_order')
             ->orderBy('title')
             ->withCount('lessons')
             ->get();
 
-        return view('member.courses.index', compact('courses'));
+        $completedLessonIds = LessonProgress::query()
+            ->where('user_id', auth()->id())
+            ->whereNotNull('completed_at')
+            ->pluck('lesson_id')
+            ->all();
+
+        $courseProgress = $courses->mapWithKeys(function (Course $course) use ($completedLessonIds) {
+            $completed = $course->lessons->whereIn('id', $completedLessonIds)->count();
+            $total = $course->lessons->count();
+            $isDone = $total > 0 && $completed === $total;
+
+            return [$course->id => [
+                'completed' => $completed,
+                'total' => $total,
+                'percent' => $total > 0 ? (int) round(($completed / $total) * 100) : 0,
+                'status' => $isDone ? 'completed' : ($completed > 0 ? 'in-progress' : 'new'),
+            ]];
+        });
+
+        $filter = $request->query('filter', 'all');
+        if (! in_array($filter, ['all', 'new', 'in-progress', 'completed'], true)) {
+            $filter = 'all';
+        }
+
+        $filteredCourses = $filter === 'all'
+            ? $courses
+            : $courses->filter(fn (Course $course) => ($courseProgress[$course->id]['status'] ?? 'new') === $filter)->values();
+
+        return view('member.courses.index', compact(
+            'courses',
+            'filteredCourses',
+            'courseProgress',
+            'completedLessonIds',
+            'filter'
+        ));
     }
 
     public function show(string $slug): View

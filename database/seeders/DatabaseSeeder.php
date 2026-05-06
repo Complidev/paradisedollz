@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Demo platform basics',
                 'platform_label' => 'Example platform',
+                'platform_color' => '#C9A96E',
                 'description' => 'Sample course so you can click through lessons and chat after publishing.',
                 'is_published' => true,
                 'sort_order' => 1,
@@ -39,12 +40,16 @@ class DatabaseSeeder extends Seeder
                     'title' => 'Getting started',
                     'body' => 'Overview of account setup and safety basics. Add your hosted tutorial video embed URL in the admin panel.',
                     'video_url' => null,
+                    'duration' => '08:00',
+                    'has_pdf' => true,
                     'sort_order' => 1,
                 ],
                 [
                     'title' => 'Navigation walkthrough',
                     'body' => 'Where to find earnings, settings, and stream controls.',
                     'video_url' => null,
+                    'duration' => '12:00',
+                    'has_pdf' => false,
                     'sort_order' => 2,
                 ],
             ]);

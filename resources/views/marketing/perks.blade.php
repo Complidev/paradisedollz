@@ -16,7 +16,7 @@
                 __('Health & wellness resources'),
             ] as $perk)
                 <div class="bg-white border border-boss-pink/30 p-6 flex gap-4 items-start">
-                    <span class="text-boss-gold text-xl">✦</span>
+                    <span class="text-boss-gold text-sm tracking-[0.15em]">OK</span>
                     <p class="text-boss-dark/80">{{ $perk }}</p>
                 </div>
             @endforeach

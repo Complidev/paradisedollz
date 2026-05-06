@@ -6,12 +6,12 @@
         <div class="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
             <p class="text-boss-gold tracking-[0.4em] uppercase mb-4 text-[0.7rem]">{{ __('Travel & streams') }}</p>
             <h1 class="font-display text-[clamp(2.5rem,6vw,4rem)] leading-tight">{{ __('Work From Paradise') }}</h1>
-            <p class="mt-6 text-white/85 text-[1rem] leading-relaxed">{{ __('Portable rigs, timezone-friendly scheduling, and lifestyle planning so “office” can be anywhere.') }}</p>
+            <p class="mt-6 text-white/85 text-[1rem] leading-relaxed">{{ __('Portable rigs, timezone-friendly scheduling, and lifestyle planning so your office can be anywhere.') }}</p>
         </div>
     </section>
     <section class="py-20 bg-boss-cream">
         <div class="max-w-3xl mx-auto px-4 text-boss-dark/70 leading-relaxed space-y-6 text-[0.95rem]">
-            <p>{{ __('We coordinate logistics recommendations, connectivity tips, and brand-safe content strategies when you’re on the move.') }}</p>
+            <p>{{ __("We coordinate logistics recommendations, connectivity tips, and brand-safe content strategies when you're on the move.") }}</p>
             <a href="{{ route('home') }}#apply" class="inline-block bg-boss-dark text-white hover:bg-boss-gold px-10 py-3 tracking-[0.15em] uppercase text-[0.7rem] transition-colors">{{ __('Join us') }}</a>
         </div>
     </section>

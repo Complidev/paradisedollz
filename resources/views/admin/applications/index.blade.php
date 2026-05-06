@@ -1,94 +1,110 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Applications') }}</h2>
-    </x-slot>
+    <div class="mx-auto max-w-7xl space-y-6 text-boss-ivory">
+        <header>
+            <p class="pd-kicker">{{ __('Recruitment') }}</p>
+            <h1 class="pd-heading mt-2 text-[clamp(2rem,4vw,2.6rem)]">{{ __('Applications') }}</h1>
+        </header>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if (session('status'))
-                <div class="rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('status') }}</div>
-            @endif
+        @if (session('status'))
+            <div class="rounded-xl border border-green-400/20 bg-green-400/10 p-4 text-sm text-green-200">{{ session('status') }}</div>
+        @endif
 
-            @if (session('warning'))
-                <div class="rounded-md bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900 space-y-3">
-                    <p>{{ session('warning') }}</p>
-                    @if (session('approval_fallback_password'))
-                        <div class="rounded-md border border-amber-300 bg-white px-4 py-3 text-gray-900">
-                            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Temporary password (email failed)') }}</p>
-                            <p class="mt-1 text-xs text-gray-600">{{ session('approval_fallback_email') }}</p>
-                            <p class="mt-2 select-all font-mono text-base font-semibold tracking-wide break-all">{{ session('approval_fallback_password') }}</p>
-                        </div>
-                    @endif
-                </div>
-            @endif
+        @if (session('warning'))
+            <div class="space-y-3 rounded-xl border border-amber-300/20 bg-amber-300/10 p-4 text-sm text-amber-100">
+                <p>{{ session('warning') }}</p>
+                @if (session('approval_fallback_password'))
+                    <div class="rounded-xl border border-amber-300/25 bg-boss-ink px-4 py-3 text-boss-ivory">
+                        <p class="text-[0.65rem] uppercase tracking-[0.14em] text-amber-200/60">{{ __('Temporary password (email failed)') }}</p>
+                        <p class="mt-1 text-xs text-boss-ivory/40">{{ session('approval_fallback_email') }}</p>
+                        <p class="mt-2 select-all break-all font-mono text-base font-semibold tracking-wide">{{ session('approval_fallback_password') }}</p>
+                    </div>
+                @endif
+            </div>
+        @endif
 
-            @if ($errors->any())
-                <div class="rounded-md bg-red-50 p-4 text-sm text-red-800">
-                    @foreach ($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
-                </div>
-            @endif
+        @if ($errors->any())
+            <div class="rounded-xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-200">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
 
-            <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-                <table class="min-w-full divide-y divide-gray-200 text-sm">
-                    <thead class="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <div class="overflow-hidden rounded-2xl border border-white/[0.06] bg-boss-panel-strong">
+            <div class="overflow-x-auto">
+                <table class="pd-table min-w-full">
+                    <thead>
                         <tr>
-                            <th class="px-6 py-3">{{ __('Applicant') }}</th>
-                            <th class="px-6 py-3">{{ __('Status') }}</th>
-                            <th class="px-6 py-3">{{ __('Submitted') }}</th>
-                            <th class="px-6 py-3 text-right">{{ __('Actions') }}</th>
+                            <th class="text-left">{{ __('Applicant') }}</th>
+                            <th class="text-left">{{ __('Status') }}</th>
+                            <th class="text-left">{{ __('Submitted') }}</th>
+                            <th class="text-right">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody>
                         @forelse ($applications as $application)
                             <tr>
-                                <td class="px-6 py-4">
-                                    <div class="font-medium text-gray-900">{{ $application->name }}</div>
-                                    <div class="text-gray-500">{{ $application->email }}</div>
-                                    @if ($application->experience_level)
-                                        <div class="text-xs text-gray-400 mt-1">{{ __('Experience') }}: {{ $application->experience_level }}</div>
-                                    @endif
-                                    @if ($application->social_handle)
-                                        <div class="text-xs text-gray-400">{{ __('Social') }}: {{ $application->social_handle }}</div>
-                                    @endif
-                                    @if ($application->age_confirmed)
-                                        <div class="text-xs text-gray-400">{{ __('18+ confirmed') }}</div>
-                                    @endif
-                                    @if ($application->phone)
-                                        <div class="text-gray-500">{{ $application->phone }}</div>
-                                    @endif
-                                    @if ($application->message)
-                                        <p class="mt-2 whitespace-pre-line text-gray-600">{{ $application->message }}</p>
-                                    @endif
+                                <td class="align-top">
+                                    <div class="flex gap-3">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-boss-gold/20 bg-boss-gold/10 font-display text-[0.76rem] text-boss-gold">
+                                            {{ strtoupper(substr($application->name, 0, 1)) }}
+                                        </div>
+                                        <div class="min-w-0">
+                                            <div class="font-medium text-boss-ivory">{{ $application->name }}</div>
+                                            <div class="text-boss-ivory/38">{{ $application->email }}</div>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                @if ($application->experience_level)
+                                                    <span class="rounded-full bg-white/[0.04] px-2 py-0.5 text-[0.65rem] text-boss-ivory/35">{{ __('Experience') }}: {{ $application->experience_level }}</span>
+                                                @endif
+                                                @if ($application->social_handle)
+                                                    <span class="rounded-full bg-white/[0.04] px-2 py-0.5 text-[0.65rem] text-boss-ivory/35">{{ $application->social_handle }}</span>
+                                                @endif
+                                                @if ($application->age_confirmed)
+                                                    <span class="rounded-full bg-boss-gold/10 px-2 py-0.5 text-[0.65rem] text-boss-gold">{{ __('18+ confirmed') }}</span>
+                                                @endif
+                                            </div>
+                                            @if ($application->phone)
+                                                <div class="mt-2 text-boss-ivory/38">{{ $application->phone }}</div>
+                                            @endif
+                                            @if ($application->message)
+                                                <p class="mt-3 max-w-2xl whitespace-pre-line text-boss-ivory/48">{{ $application->message }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
-                                <td class="px-6 py-4 capitalize">{{ __($application->status) }}</td>
-                                <td class="px-6 py-4 text-gray-500">{{ $application->created_at->toFormattedDateString() }}</td>
-                                <td class="px-6 py-4 text-right space-y-2">
+                                <td class="align-top">
+                                    <span class="rounded-full px-2.5 py-1 text-[0.65rem] capitalize {{ $application->status === \App\Models\ModelApplication::STATUS_PENDING ? 'bg-boss-gold/10 text-boss-gold' : ($application->status === \App\Models\ModelApplication::STATUS_APPROVED ? 'bg-green-400/10 text-green-300' : 'bg-red-400/10 text-red-300') }}">
+                                        {{ __($application->status) }}
+                                    </span>
+                                </td>
+                                <td class="align-top text-boss-ivory/42">{{ $application->created_at->toFormattedDateString() }}</td>
+                                <td class="align-top text-right">
                                     @if ($application->status === \App\Models\ModelApplication::STATUS_PENDING)
-                                        <form method="POST" action="{{ route('admin.applications.approve', $application) }}" class="inline">
-                                            @csrf
-                                            <x-secondary-button type="submit">{{ __('Approve') }}</x-secondary-button>
-                                        </form>
-                                        <form method="POST" action="{{ route('admin.applications.reject', $application) }}" class="inline">
-                                            @csrf
-                                            <x-danger-button type="submit">{{ __('Reject') }}</x-danger-button>
-                                        </form>
+                                        <div class="flex flex-wrap justify-end gap-2">
+                                            <form method="POST" action="{{ route('admin.applications.approve', $application) }}">
+                                                @csrf
+                                                <x-secondary-button type="submit">{{ __('Approve') }}</x-secondary-button>
+                                            </form>
+                                            <form method="POST" action="{{ route('admin.applications.reject', $application) }}">
+                                                @csrf
+                                                <x-danger-button type="submit">{{ __('Reject') }}</x-danger-button>
+                                            </form>
+                                        </div>
                                     @elseif ($application->reviewer)
-                                        <div class="text-xs text-gray-500">{{ __('Reviewed by :name', ['name' => $application->reviewer->name]) }}</div>
+                                        <div class="text-xs text-boss-ivory/35">{{ __('Reviewed by :name', ['name' => $application->reviewer->name]) }}</div>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-500">{{ __('No applications yet.') }}</td>
+                                <td colspan="4" class="py-12 text-center text-boss-ivory/35">{{ __('No applications yet.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
-            <div class="px-2">{{ $applications->links() }}</div>
         </div>
+
+        <div class="px-2">{{ $applications->links() }}</div>
     </div>
 </x-admin-layout>

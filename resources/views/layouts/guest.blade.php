@@ -9,16 +9,22 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-boss-dark antialiased bg-boss-muted">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div>
-                <a href="{{ route('home') }}" class="font-display text-boss-gold tracking-[0.35em] uppercase text-sm">
-                    ✦ {{ config('app.name') }} ✦
-                </a>
-            </div>
+    <body class="font-sans antialiased pd-dark-surface">
+        <div class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
+            <div class="pointer-events-none absolute inset-0 opacity-40" style="background-image: radial-gradient(rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 32px 32px;"></div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-6 bg-white border border-boss-pink/40 shadow-sm overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <div class="relative z-10 w-full max-w-md">
+                <div class="mb-8 text-center">
+                    <a href="{{ route('home') }}" class="text-[0.65rem] uppercase tracking-[0.28em] text-boss-gold/70 transition-colors hover:text-boss-gold">
+                        {{ __('Back to site') }}
+                    </a>
+                    <h1 class="pd-heading pd-text-gradient mt-6 text-[2.1rem]">{{ config('app.name') }}</h1>
+                    <p class="mt-2 text-[0.82rem] text-boss-ivory/35">{{ __('Member access and training portal') }}</p>
+                </div>
+
+                <div class="pd-panel p-6 sm:p-7">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </body>

@@ -14,12 +14,12 @@
             <div class="max-w-3xl mx-auto text-center mb-16">
                 <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('The Foundation') }}</p>
                 <h2 class="font-display text-[clamp(1.8rem,3vw,2.5rem)] text-boss-dark leading-snug mb-6">{{ __('From ambition to agency') }}</h2>
-                <p class="text-boss-dark/65 leading-relaxed text-[0.95rem]">{{ __('Boss Doll began with one model’s vision: professional training, real community, and income paths that fit real life. Today we’re a global network helping members stream smarter, travel freely, and build brands they own.') }}</p>
+                <p class="text-boss-dark/65 leading-relaxed text-[0.95rem]">{{ __("Boss Doll began with one model's vision: professional training, real community, and income paths that fit real life. Today we are a global network helping members stream smarter, travel freely, and build brands they own.") }}</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ([
                     ['2018', __('The Beginning'), __('Started with ambition and the belief that performers deserve more.')],
-                    ['2020', __('Going Digital'), __('Scaled audiences online—earning from anywhere.')],
+                    ['2020', __('Going Digital'), __('Scaled audiences online - earning from anywhere.')],
                     ['2022', __('Building the Agency'), __('Formal training, mentorship, and the Boss Doll blueprint.')],
                     ['2024', __('Global Vision'), __('International growth and a worldwide sisterhood.')],
                 ] as $t)

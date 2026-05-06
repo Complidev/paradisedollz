@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
 
     Route::get('/models/progress', [AdminModelProgressController::class, 'index'])->name('models.progress');
 
+    Route::patch('/courses/{course}/visibility', [AdminCourseController::class, 'visibility'])->name('courses.visibility');
     Route::resource('courses', AdminCourseController::class)->except(['show']);
 
     Route::post('/courses/{course}/lessons', [AdminLessonController::class, 'store'])->name('courses.lessons.store');

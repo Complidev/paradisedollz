@@ -1,27 +1,20 @@
 <x-dynamic-component :component="auth()->user()->isAdmin() ? 'admin-layout' : 'member-layout'">
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-boss-dark leading-tight font-display">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+    <div class="mx-auto max-w-3xl space-y-6 text-boss-ivory">
+        <header>
+            <p class="pd-kicker">{{ __('Account') }}</p>
+            <h1 class="pd-heading mt-2 text-[clamp(2rem,4vw,2.6rem)]">{{ __('Profile') }}</h1>
+        </header>
 
-    <div class="py-4 space-y-6">
-        <div class="p-4 sm:p-8 bg-white shadow border border-boss-pink/30 sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.update-profile-information-form')
-            </div>
+        <div class="pd-panel p-6 sm:p-8">
+            @include('profile.partials.update-profile-information-form')
         </div>
 
-        <div class="p-4 sm:p-8 bg-white shadow border border-boss-pink/30 sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.update-password-form')
-            </div>
+        <div class="pd-panel p-6 sm:p-8">
+            @include('profile.partials.update-password-form')
         </div>
 
-        <div class="p-4 sm:p-8 bg-white shadow border border-boss-pink/30 sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.delete-user-form')
-            </div>
+        <div class="rounded-2xl border border-red-400/15 bg-red-400/[0.04] p-6 sm:p-8">
+            @include('profile.partials.delete-user-form')
         </div>
     </div>
 </x-dynamic-component>

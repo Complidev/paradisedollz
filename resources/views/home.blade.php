@@ -12,7 +12,7 @@
         <div class="absolute inset-0 bg-black/35"></div>
 
         <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto pt-20">
-            <p class="text-boss-gold tracking-[0.5em] uppercase mb-8 text-[0.75rem]">✦ {{ config('app.name') }} ✦</p>
+            <p class="text-boss-gold tracking-[0.5em] uppercase mb-8 text-[0.75rem]">{{ config('app.name') }}</p>
             <h1 class="text-white mb-6 font-display text-[clamp(2.8rem,7vw,6rem)] leading-[1.05]">
                 {{ __('Unlock a world of') }}<br><em>{{ __('opportunities') }}</em>
             </h1>
@@ -36,7 +36,7 @@
                     <ul class="space-y-5">
                         @foreach ([
                             __('Full training from industry experts'),
-                            __('Boss Doll Blueprint — your personalised roadmap'),
+                            __('Boss Doll Blueprint - your personalised roadmap'),
                             __('1:1 mentoring sessions tailored to your goals'),
                             __('VIP photoshoots to build your portfolio'),
                             __('Access to our exclusive global network'),
@@ -75,10 +75,10 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ([
-                    ['icon' => '✨', 'title' => __('No Experience Needed'), 'desc' => __('We train you from the ground up. All you need is the ambition to succeed.')],
-                    ['icon' => '📈', 'title' => __('High Earning Potential'), 'desc' => __('Multiple income streams designed to maximise your earnings from day one.')],
-                    ['icon' => '🛡', 'title' => __('Safety & Security'), 'desc' => __('Your wellbeing is our priority. A safe, professional environment always.')],
-                    ['icon' => '♔', 'title' => __('Build Your Brand'), 'desc' => __('Become a recognised name. We give you the tools to own your identity.')],
+                    ['icon' => '01', 'title' => __('No Experience Needed'), 'desc' => __('We train you from the ground up. All you need is the ambition to succeed.')],
+                    ['icon' => '02', 'title' => __('High Earning Potential'), 'desc' => __('Multiple income streams designed to maximise your earnings from day one.')],
+                    ['icon' => '03', 'title' => __('Safety & Security'), 'desc' => __('Your wellbeing is our priority. A safe, professional environment always.')],
+                    ['icon' => '04', 'title' => __('Build Your Brand'), 'desc' => __('Become a recognised name. We give you the tools to own your identity.')],
                 ] as $benefit)
                     <div class="bg-white p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                         <div class="w-14 h-14 rounded-full bg-boss-pink flex items-center justify-center mx-auto mb-6 text-xl">{{ $benefit['icon'] }}</div>
@@ -113,7 +113,7 @@
                         {{ __('One Stream.') }}<br><em>{{ __('Multiple Incomes.') }}</em>
                     </h2>
                     <p class="text-boss-dark/60 mb-8 leading-relaxed text-[0.95rem]">
-                        {{ __('Our proprietary multistreaming technology lets you broadcast live to multiple platforms simultaneously — multiplying your reach and income from a single session. Work smarter, not harder.') }}
+                        {{ __('Our proprietary multistreaming technology lets you broadcast live to multiple platforms simultaneously - multiplying your reach and income from a single session. Work smarter, not harder.') }}
                     </p>
                     <a href="{{ route('multistreaming') }}" class="bg-boss-gold hover:bg-boss-gold-hover text-white px-8 py-3 transition-all duration-300 inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[0.7rem]">
                         {{ __('How It Works') }}
@@ -193,7 +193,7 @@
                         <select name="experience_level" required class="w-full border border-boss-pink bg-boss-muted px-4 py-3.5 focus:outline-none focus:border-boss-gold transition-colors text-[0.9rem] appearance-none">
                             <option value="">{{ __('Select your experience level') }}</option>
                             <option value="none" {{ old('experience_level') === 'none' ? 'selected' : '' }}>{{ __('No Experience') }}</option>
-                            <option value="1-2" {{ old('experience_level') === '1-2' ? 'selected' : '' }}>{{ __('1–2 Years') }}</option>
+                            <option value="1-2" {{ old('experience_level') === '1-2' ? 'selected' : '' }}>{{ __('1-2 Years') }}</option>
                             <option value="3+" {{ old('experience_level') === '3+' ? 'selected' : '' }}>{{ __('3+ Years') }}</option>
                             <option value="professional" {{ old('experience_level') === 'professional' ? 'selected' : '' }}>{{ __('Professional') }}</option>
                         </select>

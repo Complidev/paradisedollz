@@ -13,8 +13,18 @@ class Lesson extends Model
         'title',
         'body',
         'video_url',
+        'duration',
+        'has_pdf',
+        'pdf_url',
         'sort_order',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'has_pdf' => 'boolean',
+        ];
+    }
 
     public function course(): BelongsTo
     {
