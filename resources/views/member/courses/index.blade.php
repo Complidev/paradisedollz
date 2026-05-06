@@ -13,7 +13,7 @@
 
             <div class="grid gap-6 md:grid-cols-2">
                 @forelse ($courses as $course)
-                    @php($pct = $course->progressPercentFor(auth()->user()))
+                    @php($pct = $progressPercents[$course->id] ?? 0)
                     <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
                         <div class="border-b border-gray-100 px-6 py-4">
                             <div class="flex items-start justify-between gap-4">

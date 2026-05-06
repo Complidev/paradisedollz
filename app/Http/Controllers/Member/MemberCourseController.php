@@ -12,12 +12,15 @@ class MemberCourseController extends Controller
     {
         $courses = Course::query()
             ->where('is_published', true)
+            ->with(['lessons' => fn ($q) => $q->select('id', 'course_id')])
             ->orderBy('sort_order')
             ->orderBy('title')
             ->withCount('lessons')
             ->get();
 
-        return view('member.courses.index', compact('courses'));
+        $progressPercents = Course::batchProgressPercentsForUser(auth()->user(), $courses);
+
+        return view('member.courses.index', compact('courses', 'progressPercents'));
     }
 
     public function show(string $slug): View
