@@ -21,10 +21,6 @@ class ModelApplication extends Model
         'experience_level',
         'social_handle',
         'age_confirmed',
-        'status',
-        'reviewed_by',
-        'reviewed_at',
-        'user_id',
     ];
 
     protected function casts(): array

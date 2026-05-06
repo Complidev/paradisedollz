@@ -33,7 +33,6 @@ class ApplyController extends Controller
             'experience_level' => $validated['experience_level'],
             'social_handle' => $validated['social_handle'] ?? null,
             'age_confirmed' => true,
-            'status' => ModelApplication::STATUS_PENDING,
         ]);
 
         return redirect()->route('home')->withFragment('apply')->with('application_sent', true);

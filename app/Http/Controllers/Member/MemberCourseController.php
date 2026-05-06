@@ -14,19 +14,22 @@ class MemberCourseController extends Controller
     {
         $courses = Course::query()
             ->where('is_published', true)
-            ->with(['lessons' => fn ($q) => $q->orderBy('sort_order')])
+            ->with(['lessons' => fn ($q) => $q->select('id', 'course_id', 'title', 'sort_order')->orderBy('sort_order')])
             ->orderBy('sort_order')
             ->orderBy('title')
             ->withCount('lessons')
             ->get();
 
+        $progressPercents = Course::batchProgressPercentsForUser(auth()->user(), $courses);
+
         $completedLessonIds = LessonProgress::query()
             ->where('user_id', auth()->id())
             ->whereNotNull('completed_at')
             ->pluck('lesson_id')
+            ->map(fn ($lessonId) => (int) $lessonId)
             ->all();
 
-        $courseProgress = $courses->mapWithKeys(function (Course $course) use ($completedLessonIds) {
+        $courseProgress = $courses->mapWithKeys(function (Course $course) use ($completedLessonIds, $progressPercents) {
             $completed = $course->lessons->whereIn('id', $completedLessonIds)->count();
             $total = $course->lessons->count();
             $isDone = $total > 0 && $completed === $total;
@@ -34,7 +37,7 @@ class MemberCourseController extends Controller
             return [$course->id => [
                 'completed' => $completed,
                 'total' => $total,
-                'percent' => $total > 0 ? (int) round(($completed / $total) * 100) : 0,
+                'percent' => $progressPercents[$course->id] ?? 0,
                 'status' => $isDone ? 'completed' : ($completed > 0 ? 'in-progress' : 'new'),
             ]];
         });
