@@ -12,6 +12,7 @@ class MemberDashboardController extends Controller
     public function __invoke(): View
     {
         $user = auth()->user();
+        $profile = $user->modelProfile()->firstOrCreate([]);
 
         $courses = Course::query()
             ->where('is_published', true)
@@ -57,7 +58,8 @@ class MemberDashboardController extends Controller
             'totalLessons',
             'inProgressCount',
             'completedCoursesCount',
-            'notStartedCount'
+            'notStartedCount',
+            'profile'
         ));
     }
 }

@@ -16,6 +16,7 @@ class Lesson extends Model
         'duration',
         'has_pdf',
         'pdf_url',
+        'presentation_url',
         'sort_order',
     ];
 

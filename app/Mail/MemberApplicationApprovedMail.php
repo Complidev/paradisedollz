@@ -16,12 +16,13 @@ class MemberApplicationApprovedMail extends Mailable
         public string $memberName,
         public string $temporaryPassword,
         public string $loginUrl,
+        public string $onboardingUrl,
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Your member account is ready'),
+            subject: __('Application approval'),
         );
     }
 

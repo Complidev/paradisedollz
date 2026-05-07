@@ -67,6 +67,9 @@
                                         @if ($lesson->has_pdf)
                                             <span class="text-boss-gold">{{ __('PDF') }}</span>
                                         @endif
+                                        @if ($lesson->presentation_url)
+                                            <span class="text-boss-gold">{{ __('Slides') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +141,10 @@
                                         @else
                                             <span class="rounded-xl border border-boss-gold/15 bg-boss-gold/[0.06] px-4 py-2.5 text-[0.78rem] text-boss-gold">{{ __('PDF Guide Included') }}</span>
                                         @endif
+                                    @endif
+
+                                    @if ($lesson->presentation_url)
+                                        <a href="{{ $lesson->presentation_url }}" target="_blank" rel="noopener" class="pd-btn-secondary">{{ __('Visual Presentation') }}</a>
                                     @endif
                                 </div>
                             </div>

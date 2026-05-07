@@ -62,7 +62,19 @@
                                                 @if ($application->age_confirmed)
                                                     <span class="rounded-full bg-boss-gold/10 px-2 py-0.5 text-[0.65rem] text-boss-gold">{{ __('18+ confirmed') }}</span>
                                                 @endif
+                                                @if ($application->profile)
+                                                    <span class="rounded-full bg-green-400/10 px-2 py-0.5 text-[0.65rem] text-green-300">{{ __('Onboarding created') }}</span>
+                                                @endif
                                             </div>
+                                            @if ($application->photo_paths)
+                                                <div class="mt-2 flex flex-wrap gap-2">
+                                                    @foreach ($application->photo_paths as $index => $path)
+                                                        <a href="{{ route('admin.applications.photos.show', [$application, $index]) }}" class="text-[0.7rem] text-boss-gold hover:text-boss-gold-light">
+                                                            {{ __('Photo :n', ['n' => $loop->iteration]) }}
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             @if ($application->phone)
                                                 <div class="mt-2 text-boss-ivory/38">{{ $application->phone }}</div>
                                             @endif

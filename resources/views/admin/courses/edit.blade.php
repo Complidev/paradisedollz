@@ -180,6 +180,12 @@
                                 </div>
                             </div>
 
+                            <div>
+                                <x-input-label for="presentation_{{ $lesson->id }}" :value="__('Canva / presentation URL')" />
+                                <x-text-input id="presentation_{{ $lesson->id }}" name="presentation_url" type="text" class="mt-2" :value="old('presentation_url', $lesson->presentation_url)" placeholder="https://www.canva.com/design/..." />
+                                <p class="mt-1 text-[0.65rem] text-boss-ivory/25">{{ __('Visual slide deck shown beside PDF and video resources in the member lesson view.') }}</p>
+                            </div>
+
                             <label for="has_pdf_{{ $lesson->id }}" class="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 py-2.5">
                                 <input id="has_pdf_{{ $lesson->id }}" name="has_pdf" type="checkbox" value="1" class="rounded border-white/15 bg-white/5 text-boss-gold focus:ring-boss-gold" @checked(old('has_pdf', $lesson->has_pdf))>
                                 <span class="text-[0.78rem] text-boss-ivory/45">{{ __('PDF guide included') }}</span>
@@ -231,6 +237,11 @@
                             <x-input-label for="new_sort_order" :value="__('Sort order')" />
                             <x-text-input id="new_sort_order" name="sort_order" type="number" class="mt-2" />
                         </div>
+                    </div>
+
+                    <div>
+                        <x-input-label for="new_presentation_url" :value="__('Canva / presentation URL')" />
+                        <x-text-input id="new_presentation_url" name="presentation_url" type="text" class="mt-2" placeholder="https://www.canva.com/design/..." />
                     </div>
 
                     <label for="new_has_pdf" class="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 py-2.5">

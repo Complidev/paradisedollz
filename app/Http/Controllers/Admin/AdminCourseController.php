@@ -80,6 +80,7 @@ class AdminCourseController extends Controller
                     'duration' => $lesson['duration'] ?? null,
                     'has_pdf' => (bool) ($lesson['has_pdf'] ?? false),
                     'pdf_url' => $lesson['pdf_url'] ?? null,
+                    'presentation_url' => $lesson['presentation_url'] ?? null,
                     'sort_order' => $lesson['sort_order'] ?? ($index + 1),
                 ]);
             }
@@ -152,6 +153,7 @@ class AdminCourseController extends Controller
                 'lessons.*.duration' => ['nullable', 'string', 'max:64'],
                 'lessons.*.has_pdf' => ['nullable', 'boolean'],
                 'lessons.*.pdf_url' => ['nullable', 'string', 'max:2000'],
+                'lessons.*.presentation_url' => ['nullable', 'string', 'max:2000'],
                 'lessons.*.sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
             ];
         }

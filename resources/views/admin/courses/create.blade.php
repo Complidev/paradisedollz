@@ -6,6 +6,7 @@
         'duration' => '',
         'has_pdf' => false,
         'pdf_url' => '',
+        'presentation_url' => '',
         'sort_order' => 1,
     ]]);
 @endphp
@@ -26,7 +27,7 @@
                 this.showSuggestions = false;
             },
             addLesson() {
-                this.lessons.push({ title: '', body: '', video_url: '', duration: '', has_pdf: false, pdf_url: '', sort_order: this.lessons.length + 1 });
+                this.lessons.push({ title: '', body: '', video_url: '', duration: '', has_pdf: false, pdf_url: '', presentation_url: '', sort_order: this.lessons.length + 1 });
             },
             removeLesson(index) {
                 this.lessons.splice(index, 1);
@@ -184,6 +185,12 @@
                                 <div>
                                     <x-input-label ::for="`lesson_pdf_${index}`" :value="__('PDF URL')" />
                                     <input type="text" class="pd-input mt-2" x-model="lesson.pdf_url" x-bind:id="`lesson_pdf_${index}`" x-bind:name="`lessons[${index}][pdf_url]`" placeholder="https://...">
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <x-input-label ::for="`lesson_presentation_${index}`" :value="__('Canva / presentation URL')" />
+                                    <input type="text" class="pd-input mt-2" x-model="lesson.presentation_url" x-bind:id="`lesson_presentation_${index}`" x-bind:name="`lessons[${index}][presentation_url]`" placeholder="https://www.canva.com/design/...">
+                                    <p class="mt-1 text-[0.6rem] text-boss-ivory/20">{{ __('Use this for Canva-style visual presentations or slide decks.') }}</p>
                                 </div>
 
                                 <input type="hidden" x-bind:name="`lessons[${index}][sort_order]`" x-bind:value="index + 1">

@@ -11,6 +11,7 @@
         ['route' => 'work-from-paradise', 'label' => __('Work From Paradise')],
         ['route' => 'perks', 'label' => __('Perks')],
         ['route' => 'multistreaming', 'label' => __('Multistreaming')],
+        ['route' => 'success-stories', 'label' => __('Success Stories')],
         ['route' => $memberRoute, 'label' => __('Members'), 'auth' => true],
     ];
 @endphp
@@ -47,6 +48,16 @@
             </div>
 
             <div class="flex items-center gap-3">
+                @guest
+                    <a
+                        href="{{ route('login') }}"
+                        class="hidden border border-current px-6 py-2.5 text-[0.65rem] uppercase tracking-[0.14em] transition-all duration-300 hover:border-boss-gold hover:bg-boss-gold hover:text-white md:inline-flex"
+                        x-bind:class="transparent && !scrolled && !navOpen ? 'text-white' : 'text-boss-dark'"
+                    >
+                        {{ __('Log in') }}
+                    </a>
+                @endguest
+
                 <a
                     href="{{ route('home') }}#apply"
                     class="hidden bg-boss-gold px-6 py-2.5 text-[0.65rem] uppercase tracking-[0.14em] text-white transition-all duration-300 hover:bg-boss-gold-hover md:inline-flex"
@@ -88,7 +99,17 @@
                 </a>
             @endforeach
 
-            <div class="px-4 pt-4">
+            <div @class(['grid gap-3 px-4 pt-4', 'sm:grid-cols-2' => auth()->guest()])>
+                @guest
+                    <a
+                        href="{{ route('login') }}"
+                        class="block w-full border border-boss-gold py-3 text-center text-[0.7rem] uppercase tracking-[0.14em] text-boss-gold transition-colors hover:bg-boss-gold hover:text-white"
+                        @click="navOpen = false"
+                    >
+                        {{ __('Log in') }}
+                    </a>
+                @endguest
+
                 <a
                     href="{{ route('home') }}#apply"
                     class="block w-full bg-boss-gold py-3 text-center text-[0.7rem] uppercase tracking-[0.14em] text-white transition-colors hover:bg-boss-gold-hover"

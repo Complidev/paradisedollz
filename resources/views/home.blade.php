@@ -1,216 +1,347 @@
 <x-layouts.marketing :transparentNav="true" :title="__('Home')">
-    {{-- Hero --}}
     @php
-        $heroImg = 'https://images.unsplash.com/photo-1771513957554-44ef928d3fd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920';
-        $offerImg = 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800';
-        $lifeImg = 'https://images.unsplash.com/photo-1759417006128-d0317a0097f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920';
-        $streamImg = 'https://images.unsplash.com/photo-1764664035133-0d2ca12016dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800';
+        $heroImg = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=85&w=1920';
+        $workspaceImg = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=85&w=1200';
+        $villaImg = 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=85&w=1200';
+        $academyImg = 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=85&w=1200';
+        $communityImg = 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=85&w=1200';
     @endphp
 
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center scale-105" style="background-image: url('{{ $heroImg }}'); filter: blur(2px);"></div>
-        <div class="absolute inset-0 bg-black/35"></div>
+    <section class="relative flex min-h-screen items-center overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ $heroImg }}');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-boss-dark/95"></div>
 
-        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto pt-20">
-            <p class="text-boss-gold tracking-[0.5em] uppercase mb-8 text-[0.75rem]">{{ config('app.name') }}</p>
-            <h1 class="text-white mb-6 font-display text-[clamp(2.8rem,7vw,6rem)] leading-[1.05]">
-                {{ __('Unlock a world of') }}<br><em>{{ __('opportunities') }}</em>
-            </h1>
-            <p class="text-white/80 mb-10 max-w-lg mx-auto text-[1.1rem] leading-relaxed">{{ __('Model and travel whilst building your own empire') }}</p>
-            <a href="#apply" class="inline-block bg-boss-gold hover:bg-boss-gold-hover text-white px-12 py-4 transition-all duration-300 hover:shadow-lg tracking-[0.2em] uppercase text-[0.75rem]">{{ __('Apply Now') }}</a>
-        </div>
-
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40">
-            <span class="text-[0.65rem] tracking-[0.2em] uppercase">{{ __('Scroll') }}</span>
-            <div class="w-px h-10 bg-gradient-to-b from-white/30 to-transparent"></div>
-        </div>
-    </section>
-
-    {{-- Core offer --}}
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('What Awaits You') }}</p>
-                    <h2 class="mb-8 font-display text-[clamp(2rem,4vw,3rem)] text-boss-dark leading-tight">{{ __('What You Get') }}</h2>
-                    <ul class="space-y-5">
-                        @foreach ([
-                            __('Full training from industry experts'),
-                            __('Boss Doll Blueprint - your personalised roadmap'),
-                            __('1:1 mentoring sessions tailored to your goals'),
-                            __('VIP photoshoots to build your portfolio'),
-                            __('Access to our exclusive global network'),
-                            __('Complete multistreaming setup & strategy'),
-                        ] as $item)
-                            <li class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-boss-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span class="text-boss-dark/70 text-[0.95rem] leading-relaxed">{{ $item }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <a href="#apply" class="mt-10 border border-boss-gold text-boss-gold hover:bg-boss-gold hover:text-white px-8 py-3 transition-all duration-300 inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[0.7rem]">
-                        {{ __('Start Your Journey') }}
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
-                </div>
-                <div class="relative">
-                    <div class="aspect-[4/5] overflow-hidden">
-                        <img src="{{ $offerImg }}" alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 bg-boss-pink px-8 py-6 z-10">
-                        <p class="font-display text-[2rem] text-boss-dark">500+</p>
-                        <p class="text-boss-dark/60 mt-1 text-[0.65rem] tracking-[0.2em] uppercase">{{ __('Women Empowered') }}</p>
-                    </div>
+        <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+            <div class="max-w-4xl text-white">
+                <p class="mb-6 text-[0.72rem] uppercase tracking-[0.38em] text-boss-gold">{{ config('app.name') }}</p>
+                <h1 class="font-display text-[clamp(3.1rem,8vw,7rem)] leading-[0.96] text-white">
+                    {{ __('Your Rich Girl Era') }}<br><em>{{ __('starts online') }}</em>
+                </h1>
+                <p class="mt-7 max-w-2xl text-[1.05rem] leading-relaxed text-white/78">
+                    {{ __('A luxury feminine opportunity platform and Boss Doll Blueprint academy for beginners, creators, and ambitious women who want remote income, structure, mentorship, and a supportive community behind them.') }}
+                </p>
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <a href="#apply" class="bg-boss-gold px-9 py-3.5 text-[0.72rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-boss-gold-hover">{{ __('Apply Now') }}</a>
+                    <a href="{{ route('multistreaming') }}" class="border border-white/40 px-9 py-3.5 text-[0.72rem] uppercase tracking-[0.16em] text-white transition-colors hover:border-white hover:bg-white hover:text-boss-dark">{{ __('See the System') }}</a>
                 </div>
             </div>
-        </div>
-    </section>
 
-    {{-- Benefits --}}
-    <section class="py-24 bg-boss-cream">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('Why :name', ['name' => config('app.name')]) }}</p>
-                <h2 class="font-display text-[clamp(2rem,4vw,3rem)] text-boss-dark">{{ __('Built for Your Success') }}</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="mt-16 grid max-w-4xl grid-cols-2 gap-3 pb-10 md:grid-cols-4">
                 @foreach ([
-                    ['icon' => '01', 'title' => __('No Experience Needed'), 'desc' => __('We train you from the ground up. All you need is the ambition to succeed.')],
-                    ['icon' => '02', 'title' => __('High Earning Potential'), 'desc' => __('Multiple income streams designed to maximise your earnings from day one.')],
-                    ['icon' => '03', 'title' => __('Safety & Security'), 'desc' => __('Your wellbeing is our priority. A safe, professional environment always.')],
-                    ['icon' => '04', 'title' => __('Build Your Brand'), 'desc' => __('Become a recognised name. We give you the tools to own your identity.')],
-                ] as $benefit)
-                    <div class="bg-white p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="w-14 h-14 rounded-full bg-boss-pink flex items-center justify-center mx-auto mb-6 text-xl">{{ $benefit['icon'] }}</div>
-                        <h3 class="mb-3 font-display text-boss-dark text-[1.05rem]">{{ $benefit['title'] }}</h3>
-                        <p class="text-boss-dark/55 leading-relaxed text-[0.85rem]">{{ $benefit['desc'] }}</p>
+                    [__('15+'), __('years industry experience')],
+                    [__('3'), __('learning formats')],
+                    [__('1:1'), __('mentorship structure')],
+                    [__('18+'), __('professional onboarding')],
+                ] as $stat)
+                    <div class="border border-white/20 bg-black/35 px-4 py-4 shadow-lg backdrop-blur-md">
+                        <p class="font-display text-[1.65rem] leading-none text-boss-gold-light">{{ $stat[0] }}</p>
+                        <p class="mt-2 text-[0.62rem] font-medium uppercase tracking-[0.12em] text-white/75">{{ $stat[1] }}</p>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    {{-- Lifestyle --}}
-    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ $lifeImg }}');"></div>
-        <div class="absolute inset-0 bg-black/45"></div>
-        <div class="relative z-10 text-center text-white px-4">
-            <p class="text-boss-gold tracking-[0.4em] uppercase mb-6 text-[0.7rem]">{{ __('The Lifestyle') }}</p>
-            <h2 class="font-display text-[clamp(2rem,5vw,4rem)] text-white leading-tight mb-8 max-w-2xl mx-auto">
-                {{ __('Work from anywhere.') }}<br><em>{{ __('Live differently.') }}</em>
-            </h2>
-            <a href="{{ route('work-from-paradise') }}" class="border border-white text-white hover:bg-white hover:text-boss-dark px-10 py-3.5 transition-all duration-300 inline-block tracking-[0.2em] uppercase text-[0.7rem]">{{ __('See Lifestyle') }}</a>
+    <section class="bg-white py-24">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+            <div>
+                <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Beginner Friendly') }}</p>
+                <h2 class="font-display text-[clamp(2.1rem,4vw,3.35rem)] leading-tight text-boss-dark">{{ __('Luxury support without the intimidating agency feeling') }}</h2>
+                <p class="mt-6 max-w-2xl text-[0.96rem] leading-relaxed text-boss-dark/62">
+                    {{ __('Paradise Dolls is built for women from real backgrounds, not only influencers with huge followings. You bring ambition and consistency. The team brings systems, guidance, onboarding, account preparation, safety standards, and a clear learning path.') }}
+                </p>
+
+                <div class="mt-10 grid gap-4 md:grid-cols-2">
+                    <div class="border border-boss-pink/60 bg-boss-muted p-6">
+                        <h3 class="font-display text-[1.25rem] text-boss-dark">{{ __('The agency handles') }}</h3>
+                        <ul class="mt-5 space-y-3 text-[0.86rem] text-boss-dark/62">
+                            @foreach ([__('onboarding and account setup'), __('verification preparation'), __('profile guidance'), __('support systems and structure')] as $item)
+                                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-boss-gold"></span>{{ $item }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="border border-boss-pink/60 bg-boss-muted p-6">
+                        <h3 class="font-display text-[1.25rem] text-boss-dark">{{ __('You learn') }}</h3>
+                        <ul class="mt-5 space-y-3 text-[0.86rem] text-boss-dark/62">
+                            @foreach ([__('how to stream professionally'), __('how platforms and tools work'), __('how to engage customers'), __('how to maximise earnings confidently')] as $item)
+                                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-boss-gold"></span>{{ $item }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="{{ $workspaceImg }}" alt="" class="h-full w-full object-cover">
+                </div>
+                <div class="absolute -bottom-7 -left-4 bg-boss-pink px-7 py-5 shadow-luxe sm:-left-7">
+                    <p class="font-display text-[1.8rem] leading-none text-boss-dark">{{ __('Support') }}</p>
+                    <p class="mt-1 text-[0.62rem] uppercase tracking-[0.16em] text-boss-dark/55">{{ __('from application to going live') }}</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    {{-- Multistreaming teaser --}}
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('The System') }}</p>
-                    <h2 class="mb-6 font-display text-[clamp(2rem,4vw,3rem)] text-boss-dark leading-tight">
-                        {{ __('One Stream.') }}<br><em>{{ __('Multiple Incomes.') }}</em>
-                    </h2>
-                    <p class="text-boss-dark/60 mb-8 leading-relaxed text-[0.95rem]">
-                        {{ __('Our proprietary multistreaming technology lets you broadcast live to multiple platforms simultaneously - multiplying your reach and income from a single session. Work smarter, not harder.') }}
-                    </p>
-                    <a href="{{ route('multistreaming') }}" class="bg-boss-gold hover:bg-boss-gold-hover text-white px-8 py-3 transition-all duration-300 inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[0.7rem]">
-                        {{ __('How It Works') }}
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
-                </div>
-                <div class="relative group cursor-pointer">
-                    <div class="aspect-video overflow-hidden rounded-sm">
-                        <img src="{{ $streamImg }}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/40">
-                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <section class="bg-boss-cream py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 max-w-3xl">
+                <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Freedom & Lifestyle') }}</p>
+                <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight text-boss-dark">{{ __('Work remotely, build income, and create a life that feels bigger') }}</h2>
+            </div>
+
+            <div class="grid gap-5 lg:grid-cols-3">
+                @foreach ([
+                    [$villaImg, __('Paradise living'), __('Tropical locations, villas, cafés, beach clubs, and flexible schedules that make remote income feel tangible.')],
+                    [$academyImg, __('Professional systems'), __('Walkthroughs, strategy, equipment guidance, and platform education designed to make the work practical.')],
+                    [$communityImg, __('Feminine community'), __('A supportive movement with mentorship, motivation, and structure so members are not left alone.')],
+                ] as $card)
+                    <div class="group overflow-hidden bg-white shadow-luxe">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="{{ $card[0] }}" alt="" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display text-[1.35rem] text-boss-dark">{{ $card[1] }}</h3>
+                            <p class="mt-3 text-[0.86rem] leading-relaxed text-boss-dark/58">{{ $card[2] }}</p>
                         </div>
                     </div>
-                    <div class="absolute bottom-4 left-4 right-4 flex gap-3">
-                        @foreach ([['5x', __('More Reach')], ['3x', __('Income')], ['10+', __('Platforms')]] as $stat)
-                            <div class="bg-black/60 backdrop-blur-sm px-4 py-2 text-white flex-1 text-center">
-                                <p class="font-display text-[1.2rem]">{{ $stat[0] }}</p>
-                                <p class="text-[0.6rem] tracking-[0.15em] uppercase opacity-70">{{ $stat[1] }}</p>
-                            </div>
-                        @endforeach
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-boss-dark py-24 text-boss-ivory">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+            <div class="border border-white/[0.07] bg-white/[0.035] p-7">
+                <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Meet Kayla') }}</p>
+                <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight">{{ __('Why Paradise Dolls exists') }}</h2>
+                <p class="mt-6 text-[0.92rem] leading-relaxed text-boss-ivory/55">
+                    {{ __('Kayla built Paradise Dolls after more than 15 years in the industry, seeing too many women dropped into agencies without the support, confidence, structure, or business education they needed to succeed.') }}
+                </p>
+                <a href="{{ route('our-story') }}" class="mt-8 inline-flex text-[0.72rem] uppercase tracking-[0.16em] text-boss-gold hover:text-boss-gold-light">{{ __('Read the Founder Story') }} -></a>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2">
+                @foreach ([
+                    [__('Survival became strategy'), __('From no safety net to building online businesses, brands, and networks that created real financial freedom.')],
+                    [__('Experience became education'), __('The hard lessons became a blueprint for confidence, consistency, branding, mindset, and platform strategy.')],
+                    [__('Agency became community'), __('The goal is not to leave girls figuring it out alone. It is support, mentorship, and a team that wants members to win.')],
+                    [__('Opportunity became the mission'), __('Paradise Dolls exists to help women step into income, travel, flexibility, and the most successful version of themselves.')],
+                ] as $item)
+                    <div class="border border-white/[0.07] bg-boss-panel p-6">
+                        <h3 class="font-display text-[1.15rem] text-boss-gold-light">{{ $item[0] }}</h3>
+                        <p class="mt-3 text-[0.84rem] leading-relaxed text-boss-ivory/48">{{ $item[1] }}</p>
                     </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div>
+                    <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('The Core System') }}</p>
+                    <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight text-boss-dark">{{ __('One stream. Multiple platforms. More visibility.') }}</h2>
+                </div>
+                <p class="text-[0.95rem] leading-relaxed text-boss-dark/60">
+                    {{ __('Paradise Dolls positions multistreaming as the main advantage: simultaneous visibility across platforms, diversified income, stronger traffic, and a smarter system for turning one live session into multiple opportunities.') }}
+                </p>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-3">
+                @foreach ([
+                    [__('Traffic'), __('Reach audiences across multiple platforms without multiplying your workload.')],
+                    [__('Monetisation'), __('Understand rankings, customer value systems, earnings tools, and retention.')],
+                    [__('Confidence'), __('Use walkthroughs to navigate controls, messages, platform tools, and live-stream flow.')],
+                ] as $item)
+                    <div class="border border-boss-pink/60 bg-boss-muted p-7">
+                        <span class="text-[0.65rem] uppercase tracking-[0.18em] text-boss-gold">{{ __('Multistreaming') }}</span>
+                        <h3 class="mt-4 font-display text-[1.35rem] text-boss-dark">{{ $item[0] }}</h3>
+                        <p class="mt-3 text-[0.86rem] leading-relaxed text-boss-dark/58">{{ $item[1] }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-boss-muted py-24">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
+            <div>
+                <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Private LMS') }}</p>
+                <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight text-boss-dark">{{ __('Boss Doll Blueprint') }}</h2>
+                <p class="mt-6 text-[0.95rem] leading-relaxed text-boss-dark/62">
+                    {{ __('The members area is designed as a luxury feminine streaming operating system, not a generic course library. The core is the walkthrough system: platform navigation, monetisation tools, stream controls, customer interaction, rankings, earnings systems, and customer retention.') }}
+                </p>
+                <div class="mt-8 grid gap-3 sm:grid-cols-3">
+                    @foreach ([__('PDF guides with screenshots'), __('Canva-style presentations'), __('Screen-recorded walkthroughs')] as $format)
+                        <div class="border border-boss-pink/70 bg-white p-4 text-[0.78rem] leading-relaxed text-boss-dark/62">{{ $format }}</div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="bg-boss-dark p-6 text-boss-ivory shadow-luxe">
+                <p class="mb-5 text-[0.66rem] uppercase tracking-[0.2em] text-boss-gold">{{ __('Academy order') }}</p>
+                <div class="space-y-3">
+                    @foreach ([
+                        __('Introduction to Kayla & Paradise Dolls'),
+                        __('Safety & professionalism'),
+                        __('Stream preparation'),
+                        __('Equipment & setup guidance'),
+                        __('Platform walkthrough systems'),
+                        __('Customer psychology and conversion strategy'),
+                        __('Passive income, content, and messaging income'),
+                    ] as $step)
+                        <div class="flex gap-4 border border-white/[0.07] bg-white/[0.035] p-4">
+                            <span class="font-display text-boss-gold">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                            <p class="text-[0.86rem] text-boss-ivory/60">{{ $step }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- CTA strip --}}
-    <section class="py-20 bg-boss-pink">
-        <div class="max-w-3xl mx-auto px-4 text-center">
-            <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('Ready?') }}</p>
-            <h2 class="mb-6 font-display text-[clamp(2rem,4vw,3rem)] text-boss-dark leading-tight">{{ __('Start Your Journey Today') }}</h2>
-            <ul class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-10 mb-10">
-                @foreach ([__('Free to apply'), __('No experience required'), __('Response within 48 hours')] as $li)
-                    <li class="flex items-center gap-2 text-boss-dark/70 text-[0.85rem]">
-                        <svg class="w-4 h-4 text-boss-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        {{ $li }}
-                    </li>
+    <section class="bg-boss-pink py-20">
+        <div class="mx-auto max-w-5xl px-4 text-center">
+            <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Community, Safety, Professionalism') }}</p>
+            <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight text-boss-dark">{{ __('Glamorous, but grounded') }}</h2>
+            <div class="mt-10 grid gap-4 md:grid-cols-3">
+                @foreach ([
+                    [__('Safety guidance'), __('Clear standards around age, verification, privacy, and professional conduct.')],
+                    [__('Structured support'), __('Onboarding, checklists, mentorship, and admin review before training begins.')],
+                    [__('All-girl energy'), __('A motivating community that feels aspirational, feminine, and achievable.')],
+                ] as $item)
+                    <div class="bg-white p-6 text-left shadow-luxe">
+                        <h3 class="font-display text-[1.2rem] text-boss-dark">{{ $item[0] }}</h3>
+                        <p class="mt-3 text-[0.84rem] leading-relaxed text-boss-dark/58">{{ $item[1] }}</p>
+                    </div>
                 @endforeach
-            </ul>
-            <a href="#apply" class="inline-block bg-boss-gold hover:bg-boss-gold-hover text-white px-12 py-4 transition-all duration-300 tracking-[0.2em] uppercase text-[0.75rem]">{{ __('Apply Now') }}</a>
+            </div>
         </div>
     </section>
 
-    {{-- Application --}}
-    <section id="apply" class="py-24 bg-white scroll-mt-24">
-        <div class="max-w-xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <p class="text-boss-gold tracking-[0.3em] uppercase mb-4 text-[0.7rem]">{{ __('Application') }}</p>
-                <h2 class="font-display text-[clamp(1.8rem,3vw,2.5rem)] text-boss-dark">{{ __('Join the :name Family', ['name' => config('app.name')]) }}</h2>
+    <section class="bg-white py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+                <div class="max-w-3xl">
+                    <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Testimonials & Success Stories') }}</p>
+                    <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-tight text-boss-dark">{{ __('Community wins make the opportunity feel real') }}</h2>
+                </div>
+                <a href="{{ route('success-stories') }}" class="text-[0.72rem] uppercase tracking-[0.16em] text-boss-gold hover:text-boss-dark">{{ __('View stories') }} -></a>
+            </div>
+
+            <div class="grid gap-5 lg:grid-cols-3">
+                @forelse ($testimonials as $testimonial)
+                    <article class="overflow-hidden bg-boss-muted shadow-luxe">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="{{ $testimonial->displayImage() }}" alt="" class="h-full w-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            @if ($testimonial->result_label)
+                                <p class="mb-3 text-[0.66rem] uppercase tracking-[0.18em] text-boss-gold">{{ $testimonial->result_label }}</p>
+                            @endif
+                            <h3 class="font-display text-[1.3rem] text-boss-dark">{{ $testimonial->headline }}</h3>
+                            <p class="mt-4 line-clamp-4 text-[0.88rem] leading-relaxed text-boss-dark/62">{{ $testimonial->quote }}</p>
+                            <p class="mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-boss-dark/42">{{ $testimonial->name }}{{ $testimonial->location ? ' - '.$testimonial->location : '' }}</p>
+                        </div>
+                    </article>
+                @empty
+                    @foreach ([
+                        [__('Beginner confidence'), __('I had no idea where to start, but the structure made everything feel possible instead of overwhelming.'), __('New member')],
+                        [__('Remote freedom'), __('The biggest change was feeling like I had support while building something flexible around my life.'), __('Paradise Dolls community')],
+                        [__('Professional guidance'), __('The walkthrough approach helped me understand the platforms instead of guessing my way through.'), __('Boss Doll Blueprint')],
+                    ] as $story)
+                        <article class="bg-boss-muted p-6 shadow-luxe">
+                            <p class="mb-3 text-[0.66rem] uppercase tracking-[0.18em] text-boss-gold">{{ $story[0] }}</p>
+                            <p class="font-display text-[1.35rem] leading-snug text-boss-dark">"{{ $story[1] }}"</p>
+                            <p class="mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-boss-dark/42">{{ $story[2] }}</p>
+                        </article>
+                    @endforeach
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <section id="apply" class="scroll-mt-24 bg-white py-24">
+        <div class="mx-auto max-w-2xl px-4">
+            <div class="mb-12 text-center">
+                <p class="mb-4 text-[0.7rem] uppercase tracking-[0.3em] text-boss-gold">{{ __('Application') }}</p>
+                <h2 class="font-display text-[clamp(1.9rem,4vw,2.75rem)] text-boss-dark">{{ __('Apply to Paradise Dolls') }}</h2>
+                <p class="mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-boss-dark/56">{{ __('No experience is required. The onboarding team reviews every application privately and will guide approved members through the next steps.') }}</p>
             </div>
 
             @if (session('application_sent'))
-                <div class="text-center py-16">
-                    <div class="w-20 h-20 rounded-full bg-boss-pink flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-10 h-10 text-boss-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="py-14 text-center">
+                    <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-boss-pink">
+                        <span class="font-display text-[2rem] text-boss-gold">OK</span>
                     </div>
-                    <h3 class="font-display text-[2rem] text-boss-dark mb-4">{{ __('Application Received!') }}</h3>
-                    <p class="text-boss-dark/60 leading-relaxed text-[0.95rem]">{{ __('Thank you for applying. Our team will review your application and be in touch within 48 hours.') }}</p>
+                    <h3 class="mb-4 font-display text-[2rem] text-boss-dark">{{ __('Application Received') }}</h3>
+                    <p class="text-[0.95rem] leading-relaxed text-boss-dark/60">{{ __('Thank you for applying. The onboarding team will review your details and contact you with the next step.') }}</p>
                 </div>
             @else
-                <form method="POST" action="{{ route('apply.store') }}" class="space-y-5">
+                <form method="POST" action="{{ route('apply.store') }}" enctype="multipart/form-data" class="space-y-5">
                     @csrf
-                    <div>
-                        <label class="block text-boss-dark/70 mb-2 text-[0.7rem] tracking-[0.15em] uppercase">{{ __('Full Name') }} *</label>
-                        <input type="text" name="name" value="{{ old('name') }}" required placeholder="{{ __('Your full name') }}" class="w-full border border-boss-pink bg-boss-muted px-4 py-3.5 focus:outline-none focus:border-boss-gold transition-colors text-[0.9rem]">
-                        <x-input-error class="mt-1.5" :messages="$errors->get('name')" />
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <div>
+                            <label class="pd-label-light">{{ __('Full Name') }} *</label>
+                            <input type="text" name="name" value="{{ old('name') }}" required placeholder="{{ __('Your full name') }}" class="pd-input-light mt-2">
+                            <x-input-error class="mt-1.5" :messages="$errors->get('name')" />
+                        </div>
+                        <div>
+                            <label class="pd-label-light">{{ __('Email Address') }} *</label>
+                            <input type="email" name="email" value="{{ old('email') }}" required placeholder="your@email.com" class="pd-input-light mt-2">
+                            <x-input-error class="mt-1.5" :messages="$errors->get('email')" />
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-boss-dark/70 mb-2 text-[0.7rem] tracking-[0.15em] uppercase">{{ __('Email Address') }} *</label>
-                        <input type="email" name="email" value="{{ old('email') }}" required placeholder="your@email.com" class="w-full border border-boss-pink bg-boss-muted px-4 py-3.5 focus:outline-none focus:border-boss-gold transition-colors text-[0.9rem]">
-                        <x-input-error class="mt-1.5" :messages="$errors->get('email')" />
+
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <div>
+                            <label class="pd-label-light">{{ __('Phone') }}</label>
+                            <input type="text" name="phone" value="{{ old('phone') }}" placeholder="+44..." class="pd-input-light mt-2">
+                            <x-input-error class="mt-1.5" :messages="$errors->get('phone')" />
+                        </div>
+                        <div>
+                            <label class="pd-label-light">{{ __('Experience Level') }} *</label>
+                            <select name="experience_level" required class="pd-input-light mt-2">
+                                <option value="">{{ __('Select your experience level') }}</option>
+                                <option value="none" {{ old('experience_level') === 'none' ? 'selected' : '' }}>{{ __('No Experience') }}</option>
+                                <option value="beginner" {{ old('experience_level') === 'beginner' ? 'selected' : '' }}>{{ __('Beginner') }}</option>
+                                <option value="1-2" {{ old('experience_level') === '1-2' ? 'selected' : '' }}>{{ __('1-2 Years') }}</option>
+                                <option value="3+" {{ old('experience_level') === '3+' ? 'selected' : '' }}>{{ __('3+ Years') }}</option>
+                            </select>
+                            <x-input-error class="mt-1.5" :messages="$errors->get('experience_level')" />
+                        </div>
                     </div>
+
                     <div>
-                        <label class="block text-boss-dark/70 mb-2 text-[0.7rem] tracking-[0.15em] uppercase">{{ __('Experience Level') }} *</label>
-                        <select name="experience_level" required class="w-full border border-boss-pink bg-boss-muted px-4 py-3.5 focus:outline-none focus:border-boss-gold transition-colors text-[0.9rem] appearance-none">
-                            <option value="">{{ __('Select your experience level') }}</option>
-                            <option value="none" {{ old('experience_level') === 'none' ? 'selected' : '' }}>{{ __('No Experience') }}</option>
-                            <option value="1-2" {{ old('experience_level') === '1-2' ? 'selected' : '' }}>{{ __('1-2 Years') }}</option>
-                            <option value="3+" {{ old('experience_level') === '3+' ? 'selected' : '' }}>{{ __('3+ Years') }}</option>
-                            <option value="professional" {{ old('experience_level') === 'professional' ? 'selected' : '' }}>{{ __('Professional') }}</option>
-                        </select>
-                        <x-input-error class="mt-1.5" :messages="$errors->get('experience_level')" />
-                    </div>
-                    <div>
-                        <label class="block text-boss-dark/70 mb-2 text-[0.7rem] tracking-[0.15em] uppercase">{{ __('Instagram / TikTok Handle') }} <span class="text-boss-dark/30">({{ __('optional') }})</span></label>
-                        <input type="text" name="social_handle" value="{{ old('social_handle') }}" placeholder="@yourhandle" class="w-full border border-boss-pink bg-boss-muted px-4 py-3.5 focus:outline-none focus:border-boss-gold transition-colors text-[0.9rem]">
+                        <label class="pd-label-light">{{ __('Instagram / TikTok Handle') }}</label>
+                        <input type="text" name="social_handle" value="{{ old('social_handle') }}" placeholder="@yourhandle" class="pd-input-light mt-2">
                         <x-input-error class="mt-1.5" :messages="$errors->get('social_handle')" />
                     </div>
-                    <div class="flex items-start gap-3 p-4 bg-boss-cream">
-                        <input type="checkbox" name="age_confirmed" id="age-check" value="1" class="mt-1 w-4 h-4 accent-boss-gold shrink-0" @checked(old('age_confirmed'))>
-                        <label for="age-check" class="text-boss-dark/70 leading-relaxed text-[0.8rem]">{{ __('I confirm that I am 18 years of age or older and agree to be contacted regarding my application.') }}</label>
+
+                    <div>
+                        <label class="pd-label-light">{{ __('Application photos') }}</label>
+                        <input type="file" name="photos[]" multiple accept=".jpg,.jpeg,.png,.webp" class="pd-input-light mt-2">
+                        <p class="mt-2 text-[0.72rem] text-boss-dark/38">{{ __('Upload up to 6 clear photos. JPG, PNG, or WEBP.') }}</p>
+                        <x-input-error class="mt-1.5" :messages="$errors->get('photos')" />
+                        <x-input-error class="mt-1.5" :messages="$errors->get('photos.*')" />
+                    </div>
+
+                    <div>
+                        <label class="pd-label-light">{{ __('Message') }}</label>
+                        <textarea name="message" rows="4" class="pd-input-light mt-2" placeholder="{{ __('Tell us what kind of freedom, income, or lifestyle you want to build.') }}">{{ old('message') }}</textarea>
+                        <x-input-error class="mt-1.5" :messages="$errors->get('message')" />
+                    </div>
+
+                    <div class="flex items-start gap-3 bg-boss-cream p-4">
+                        <input type="checkbox" name="age_confirmed" id="age-check" value="1" class="mt-1 h-4 w-4 shrink-0 accent-boss-gold" @checked(old('age_confirmed'))>
+                        <label for="age-check" class="text-[0.8rem] leading-relaxed text-boss-dark/70">{{ __('I confirm that I am 18 years of age or older and agree to be contacted about my application and onboarding.') }}</label>
                     </div>
                     <x-input-error class="-mt-2" :messages="$errors->get('age_confirmed')" />
-                    <button type="submit" class="w-full bg-boss-gold hover:bg-boss-gold-hover text-white py-4 transition-all duration-300 tracking-[0.2em] uppercase text-[0.75rem]">{{ __('Submit Application') }}</button>
-                    <p class="text-center text-boss-dark/40 text-[0.75rem]">{{ __('We respond to all applications within 48 hours.') }}</p>
+
+                    <button type="submit" class="w-full bg-boss-gold py-4 text-[0.75rem] uppercase tracking-[0.2em] text-white transition-colors hover:bg-boss-gold-hover">{{ __('Submit Application') }}</button>
+                    <p class="text-center text-[0.75rem] text-boss-dark/40">{{ __('Approved applicants receive account instructions and the Model Information Form next.') }}</p>
                 </form>
             @endif
         </div>

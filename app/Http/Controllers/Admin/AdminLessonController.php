@@ -19,6 +19,7 @@ class AdminLessonController extends Controller
             'duration' => ['nullable', 'string', 'max:64'],
             'has_pdf' => ['nullable', 'boolean'],
             'pdf_url' => ['nullable', 'string', 'max:2000'],
+            'presentation_url' => ['nullable', 'string', 'max:2000'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
         ]);
 
@@ -42,6 +43,7 @@ class AdminLessonController extends Controller
             'duration' => ['nullable', 'string', 'max:64'],
             'has_pdf' => ['nullable', 'boolean'],
             'pdf_url' => ['nullable', 'string', 'max:2000'],
+            'presentation_url' => ['nullable', 'string', 'max:2000'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
         ]);
 

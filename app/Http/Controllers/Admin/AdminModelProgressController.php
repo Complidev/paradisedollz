@@ -22,7 +22,7 @@ class AdminModelProgressController extends Controller
         $models = User::query()
             ->where('role', 'model')
             ->orderBy('name')
-            ->get(['id', 'name']);
+            ->get(['id', 'name', 'email']);
 
         $lessonToCourse = [];
         $allLessonIds = [];

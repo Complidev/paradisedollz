@@ -4,12 +4,17 @@
     $pendingLayoutApplications = \App\Models\ModelApplication::query()
         ->where('status', \App\Models\ModelApplication::STATUS_PENDING)
         ->count();
+    $pendingLayoutVerification = \App\Models\ModelProfile::query()
+        ->where('verification_status', \App\Models\ModelProfile::VERIFICATION_SUBMITTED)
+        ->count();
 
     $links = [
         ['route' => 'admin.dashboard', 'label' => __('Overview'), 'active' => request()->routeIs('admin.dashboard')],
         ['route' => 'admin.applications.index', 'label' => __('Applications'), 'active' => request()->routeIs('admin.applications.*'), 'count' => $pendingLayoutApplications],
+        ['route' => 'admin.onboarding.index', 'label' => __('Onboarding'), 'active' => request()->routeIs('admin.onboarding.*'), 'count' => $pendingLayoutVerification],
         ['route' => 'admin.models.progress', 'label' => __('Members'), 'active' => request()->routeIs('admin.models.progress')],
         ['route' => 'admin.courses.index', 'label' => __('Courses'), 'active' => request()->routeIs('admin.courses.*')],
+        ['route' => 'admin.testimonials.index', 'label' => __('Stories'), 'active' => request()->routeIs('admin.testimonials.*')],
     ];
 @endphp
 <!DOCTYPE html>

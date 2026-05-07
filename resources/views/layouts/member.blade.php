@@ -21,6 +21,7 @@
 
     $links = [
         ['route' => 'member.dashboard', 'label' => __('Dashboard'), 'active' => request()->routeIs('member.dashboard')],
+        ['route' => 'member.onboarding.edit', 'label' => __('Onboarding'), 'active' => request()->routeIs('member.onboarding.*') || request()->routeIs('member.verification.*')],
         ['route' => 'member.courses.index', 'label' => __('Academy'), 'active' => request()->routeIs('member.courses.*')],
         ['route' => 'profile.edit', 'label' => __('Profile'), 'active' => request()->routeIs('profile.*')],
     ];

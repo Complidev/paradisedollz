@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ModelApplication extends Model
 {
@@ -21,6 +22,7 @@ class ModelApplication extends Model
         'experience_level',
         'social_handle',
         'age_confirmed',
+        'photo_paths',
     ];
 
     protected function casts(): array
@@ -28,6 +30,7 @@ class ModelApplication extends Model
         return [
             'reviewed_at' => 'datetime',
             'age_confirmed' => 'boolean',
+            'photo_paths' => 'array',
         ];
     }
 
@@ -39,5 +42,10 @@ class ModelApplication extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(ModelProfile::class, 'model_application_id');
     }
 }

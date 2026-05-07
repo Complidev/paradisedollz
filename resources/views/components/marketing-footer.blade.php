@@ -5,6 +5,7 @@
         ['route' => 'work-from-paradise', 'label' => __('Work From Paradise')],
         ['route' => 'perks', 'label' => __('Perks')],
         ['route' => 'multistreaming', 'label' => __('Multistreaming')],
+        ['route' => 'success-stories', 'label' => __('Success Stories')],
     ];
 @endphp
 
@@ -16,7 +17,7 @@
                     {{ config('app.name') }}
                 </p>
                 <p class="max-w-sm text-[0.875rem] leading-relaxed text-white/50">
-                    {{ __('Building empires, one member at a time. Model, travel, and create the life you deserve.') }}
+                    {{ __('A luxury feminine opportunity platform and Boss Doll Blueprint academy for remote income, community, and confident online success.') }}
                 </p>
                 <div class="mt-6 flex gap-3">
                     <span class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-[0.68rem] text-white/35 transition-colors hover:border-boss-gold/50 hover:text-boss-gold">IG</span>

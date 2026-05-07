@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\MemberApplicationApprovedMail;
 use App\Models\ModelApplication;
+use App\Models\ModelProfile;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
 class AdminApplicationController extends Controller
@@ -20,7 +23,7 @@ class AdminApplicationController extends Controller
     {
         $applications = ModelApplication::query()
             ->latest()
-            ->with('reviewer:id,name')
+            ->with(['reviewer:id,name', 'profile:id,model_application_id,information_submitted_at,verification_status'])
             ->paginate(20);
 
         return view('admin.applications.index', compact('applications'));
@@ -53,6 +56,12 @@ class AdminApplicationController extends Controller
                 'reviewed_at' => now(),
                 'user_id' => $user->id,
             ])->save();
+
+            ModelProfile::create([
+                'user_id' => $user->id,
+                'model_application_id' => $application->id,
+                'phone' => $application->phone,
+            ]);
         });
 
         if (config('mail.default') === 'resend' && ! filled(config('services.resend.key'))) {
@@ -67,7 +76,7 @@ class AdminApplicationController extends Controller
             return $this->redirectWithApprovalMailFailure(
                 $application,
                 $temporaryPassword,
-                __('MAIL_PASSWORD is empty. For Gmail you must use an App Password from Google Account → Security → App passwords (not your normal login password). Paste it into MAIL_PASSWORD in .env, run php artisan config:clear, then try again.')
+                __('MAIL_PASSWORD is empty. For Gmail you must use an App Password from Google Account > Security > App passwords. Paste it into MAIL_PASSWORD in .env, run php artisan config:clear, then try again.')
             );
         }
 
@@ -76,16 +85,19 @@ class AdminApplicationController extends Controller
                 memberName: $application->name,
                 temporaryPassword: $temporaryPassword,
                 loginUrl: route('login'),
+                onboardingUrl: route('member.onboarding.edit'),
             ));
         } catch (Throwable $e) {
             report($e);
 
-            $hint = $this->approvalMailFailureHint($e);
-
-            return $this->redirectWithApprovalMailFailure($application, $temporaryPassword, $hint);
+            return $this->redirectWithApprovalMailFailure(
+                $application,
+                $temporaryPassword,
+                $this->approvalMailFailureHint($e)
+            );
         }
 
-        return redirect()->back()->with('status', __('Application approved. The member received an email with a temporary password to log in.'));
+        return redirect()->back()->with('status', __('Application approved. The member received the Application Approval Email with login and Model Information Form instructions.'));
     }
 
     private function redirectWithApprovalMailFailure(
@@ -107,7 +119,7 @@ class AdminApplicationController extends Controller
         $message = $e->getMessage();
 
         if (config('mail.default') === 'smtp' && str_contains($message, 'Application-specific password required')) {
-            return __('Gmail rejected SMTP login: create an App Password at Google Account → Security → App passwords and put it in MAIL_PASSWORD in .env (not your normal Gmail password). Then run php artisan config:clear.');
+            return __('Gmail rejected SMTP login. Create an App Password at Google Account > Security > App passwords and put it in MAIL_PASSWORD in .env, then run php artisan config:clear.');
         }
 
         if (config('mail.default') !== 'resend') {
@@ -115,7 +127,7 @@ class AdminApplicationController extends Controller
         }
 
         if (str_contains($message, 'API key is invalid')) {
-            return __('Resend rejected the request (invalid or missing API key). Set RESEND_API_KEY=re_… from resend.com/api-keys in .env, run php artisan config:clear, and try again.');
+            return __('Resend rejected the request. Set RESEND_API_KEY from resend.com/api-keys in .env, run php artisan config:clear, and try again.');
         }
 
         if (str_contains($message, 'domain') && str_contains(strtolower($message), 'verify')) {
@@ -138,5 +150,14 @@ class AdminApplicationController extends Controller
         ])->save();
 
         return redirect()->back()->with('status', __('Application rejected.'));
+    }
+
+    public function downloadPhoto(ModelApplication $application, int $index): StreamedResponse
+    {
+        $path = $application->photo_paths[$index] ?? null;
+
+        abort_unless(filled($path) && Storage::disk('local')->exists($path), 404);
+
+        return Storage::disk('local')->download($path);
     }
 }

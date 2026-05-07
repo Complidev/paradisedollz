@@ -12,9 +12,9 @@
         <section class="grid grid-cols-2 gap-4 lg:grid-cols-4">
             @foreach ([
                 [__('Pending Applications'), $pendingApplications, __('awaiting review'), route('admin.applications.index')],
-                [__('Courses'), $coursesCount, __('total courses'), route('admin.courses.index')],
+                [__('Verification'), $verificationReviewCount, __('awaiting ID review'), route('admin.onboarding.index')],
                 [__('Published'), $publishedCoursesCount, __('visible to members'), route('admin.courses.index')],
-                [__('Members'), $modelsCount, __('active accounts'), route('admin.models.progress')],
+                [__('Members'), $modelsCount, __('active accounts'), route('admin.onboarding.index')],
             ] as $stat)
                 <a href="{{ $stat[3] }}" class="pd-stat block transition-all duration-200 hover:border-boss-gold/25 hover:shadow-glow">
                     <p class="font-display text-[2.25rem] leading-none text-boss-gold">{{ $stat[1] }}</p>

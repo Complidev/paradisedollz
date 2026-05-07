@@ -31,6 +31,7 @@ class AdminCourseManagementTest extends TestCase
                     'duration' => '12:10',
                     'has_pdf' => '1',
                     'pdf_url' => 'https://example.com/guide.pdf',
+                    'presentation_url' => 'https://www.canva.com/design/example',
                     'sort_order' => 1,
                 ],
             ],
@@ -44,6 +45,7 @@ class AdminCourseManagementTest extends TestCase
         $this->assertSame('12:10', $course->lessons->first()->duration);
         $this->assertTrue($course->lessons->first()->has_pdf);
         $this->assertSame('https://example.com/guide.pdf', $course->lessons->first()->pdf_url);
+        $this->assertSame('https://www.canva.com/design/example', $course->lessons->first()->presentation_url);
     }
 
     public function test_admin_can_toggle_course_visibility_from_index_cards(): void

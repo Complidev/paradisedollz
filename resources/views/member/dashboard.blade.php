@@ -16,6 +16,34 @@
             <div class="rounded-xl border border-green-400/20 bg-green-400/10 p-4 text-sm text-green-200">{{ session('status') }}</div>
         @endif
 
+        <section class="pd-panel-strong p-5 md:p-6">
+            <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <p class="pd-kicker text-boss-ivory/35">{{ __('Boss Doll Blueprint') }}</p>
+                    <h2 class="pd-heading mt-2 text-[clamp(1.45rem,3vw,2rem)] text-boss-ivory">{{ __('Onboarding Path') }}</h2>
+                    <p class="mt-2 text-[0.82rem] text-boss-ivory/35">{{ $profile->verificationStatusLabel() }}</p>
+                </div>
+                <div class="w-full lg:w-72">
+                    <div class="mb-2 flex items-center justify-between text-[0.66rem] uppercase tracking-[0.12em] text-boss-ivory/30">
+                        <span>{{ __('Readiness') }}</span>
+                        <span class="text-boss-gold">{{ $profile->onboardingPercent() }}%</span>
+                    </div>
+                    <div class="pd-progress-track">
+                        <div class="pd-progress-bar" style="width: {{ $profile->onboardingPercent() }}%"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        @if (! $profile->hasInformationForm())
+                            <a href="{{ route('member.onboarding.edit') }}" class="pd-btn-primary">{{ __('Complete information') }}</a>
+                        @elseif (! $profile->hasVerificationSubmission())
+                            <a href="{{ route('member.verification.edit') }}" class="pd-btn-primary">{{ __('Complete verification') }}</a>
+                        @else
+                            <a href="{{ route('member.verification.edit') }}" class="pd-btn-secondary">{{ __('View verification') }}</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="pd-panel relative overflow-hidden p-6 md:p-8">
             <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(201,169,110,0.12),transparent_34%)]"></div>
             <div class="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
